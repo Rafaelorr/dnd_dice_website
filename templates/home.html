@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <title>Digtaal dnd dobbelstenen</title>
+</head>
+<body>
+    <header>dnd dobbelstenen</header>
+    <form action="http://192.168.76.202:5000/" method="post">
+        <label for="dice">Kies dobbelsteen</label> <br>
+
+        <select id="dice" name="dice" required>
+            <option value="2">d2</option>
+            <option value="4">d4</option>
+            <option value="6">d6</option>
+            <option value="8">d8</option>
+            <option value="10">d10</option>
+            <option value="12">d12</option>
+            <option value="20">d20</option>
+            <option value="100">d100</option>
+        </select> <br>
+
+        <label for="extra">Opties</label> <br>
+
+        <select id="extra" name="extra" required>
+            <option value="advantage">advantage</option>
+            <option value="normal">normaal</option>
+            <option value="disadvantage">disadvantage</option>
+        </select> <br>
+
+        <input type="number" name="aantal" required minlength="1" min="1" maxlength="15">
+        <button type="submit">Rol</button>
+        <p>{{resulaat}}</p>
+    </form>
+</body>
+</html>
