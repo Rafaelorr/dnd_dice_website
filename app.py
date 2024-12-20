@@ -31,8 +31,8 @@ def home():
                 else:
                     resulaat += resulaat_temp[1]
         if resulaat == 0:
-            return render_template("home.html", resulaat="Fout")
-        return render_template("home.html", resulaat=resulaat)     
+            return render_template("home.html", resulaat="Er zijn fouten gebeurt")
+        return render_template("home.html", resulaat=f'{aantal}d{dice} met {extra} = {resulaat}')  
     return render_template("home.html")
 
 if __name__ == "__main__":
