@@ -18,8 +18,9 @@ def home():
             dice = int(request.form.get("dice"))
             amount = int(request.form.get("aantal"))
             mode = request.form.get("extra")
+            modifier = int(request.form.get("modifier"))
 
-            total = sum(roll_dice(dice, mode) for _ in range(amount))
+            total = sum(roll_dice(dice, mode) for _ in range(amount)) + modifier
 
             result_text = f"{amount}d{dice} met {mode} = {total}"
             return render_template("home.html", resulaat=result_text)
