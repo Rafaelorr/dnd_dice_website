@@ -3,37 +3,30 @@ from random import randint
 
 app = Flask(__name__)
 
-@app.route("/",methods=["GET","POST"])
+def roll_dice(dice: int, mode: str) -> int:
+    if mode == "advantage":
+        return max(randint(1, dice), randint(1, dice))
+    elif mode == "disadvantage":
+        return min(randint(1, dice), randint(1, dice))
+    else:  # normal
+        return randint(1, dice)
+
+@app.route("/", methods=["GET", "POST"])
 def home():
     if request.method == "POST":
-        dice = request.form.get("dice")
-        dice = int(dice)
-        extra = request.form.get("extra")
-        aantal = request.form.get("aantal")
-        aantal = int(aantal)
-        resulaat = 0
-        resulaat_temp : list[int] = [0,0]
-        if extra == "advantage":
-            for _ in range(aantal):
-                resulaat_temp = [randint(1,dice),randint(1,dice)]
-                if resulaat_temp[0] > resulaat_temp[1]:
-                    resulaat += resulaat_temp[0]
-                else:
-                    resulaat += resulaat_temp[1]
-        elif extra == "normal":
-            for _ in range(aantal):
-                resulaat += randint(1, dice)
-        elif extra == "disadvantage":
-            for _ in range(aantal):
-                resulaat_temp = [randint(1,dice),randint(1,dice)]
-                if resulaat_temp[0] < resulaat_temp[1]:
-                    resulaat += resulaat_temp[0]
-                else:
-                    resulaat += resulaat_temp[1]
-        if resulaat == 0:
+        try:
+            dice = int(request.form.get("dice"))
+            amount = int(request.form.get("aantal"))
+            mode = request.form.get("extra")
+
+            total = sum(roll_dice(dice, mode) for _ in range(amount))
+
+            result_text = f"{amount}d{dice} met {mode} = {total}"
+            return render_template("home.html", resulaat=result_text)
+        except (TypeError, ValueError):
             return render_template("home.html", resulaat="Er zijn fouten gebeurt")
-        return render_template("home.html", resulaat=f'{aantal}d{dice} met {extra} = {resulaat}')  
+
     return render_template("home.html")
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0",debug=True)
+    app.run(host="0.0.0.0", debug=True)
