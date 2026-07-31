@@ -6,8 +6,10 @@ app = Flask(__name__)
 def roll_dice(dice: int, mode: str) -> int:
     if mode == "advantage":
         return max(randint(1, dice), randint(1, dice))
+
     elif mode == "disadvantage":
         return min(randint(1, dice), randint(1, dice))
+
     else:  # normal
         return randint(1, dice)
 
@@ -15,17 +17,21 @@ def roll_dice(dice: int, mode: str) -> int:
 def home():
     if request.method == "POST":
         try:
-            dice = int(request.form.get("dice"))
-            amount = int(request.form.get("aantal"))
-            mode = request.form.get("extra")
-            modifier = int(request.form.get("modifier"))
+            dice :int = int(request.form.get("dice"))
+            amount :int = int(request.form.get("aantal"))
+            mode :str = request.form.get("extra")
+            modifier :int = int(request.form.get("modifier"))
 
-            total = sum(roll_dice(dice, mode) for _ in range(amount)) + modifier
+            total :int = sum(roll_dice(dice, mode) for _ in range(amount)) + modifier
 
-            result_text = f"{amount}d{dice} met {mode} = {total}"
-            return render_template("home.html", resulaat=result_text)
-        except (TypeError, ValueError):
-            return render_template("home.html", resulaat="Er zijn fouten gebeurt")
+            result_text :str = f"{amount}d{dice} met {mode} = {total}"
+
+            return render_template("home.html", resultaat=result_text)
+
+        except Exception as ex:
+            resultaat = f"Er is een fout gebeurd. Error: {ex}"
+
+            return render_template("home.html", resultaat=resultaat)
 
     return render_template("home.html")
 
