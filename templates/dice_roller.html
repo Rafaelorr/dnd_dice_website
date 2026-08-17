@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Digitale D&D Dobbelstenen</title>
     <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="/static/home.css">
+    <link rel="stylesheet" href="/static/dice_roller.css">
 </head>
 <body>
     <header>Digitale D&D Dobbelstenen</header>
     
-    <form action="/" method="post">
+    <form action="/dice_roller" method="post">
         <label for="dice">Kies dobbelsteen</label>
         <select id="dice" name="dice" required>
             <option value="2">d2</option>
@@ -44,7 +44,7 @@
         {% endif %}
     </form>
 
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="{{ url_for('static', filename='dice_roller.js') }}"></script>
 
 </body>
 </html>
